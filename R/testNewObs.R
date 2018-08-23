@@ -1,0 +1,46 @@
+#' Test observations for abnormal conditions
+#'
+#' This function compares distance of new observations to the subspace identified by ADPCA in trainingSpecs() by calling mspMonitor() and mspWarning() from mvMonitoring package
+#' @param data xts object
+#' @param trainingSpecs object returned from createTrainingSpecs()
+#' @param testingDay Date object of testing observations
+#' @param faultsToTriggerAlarm Defaults to 5
+#' @export
+#'
+
+
+testNewObs <- function(data, trainingSpecs, testingDay, faultsToTriggerAlarm = 5) {
+
+  testing <- xts(data, order.by = as.POSIXct(index(data), "%Y-%m-%d %H:%M:%S", origin = "1970-01-01"))[paste(testingDay, "/", sep='')]
+
+  # Check for NA
+  if (anyNA(testing)) {
+    testing <- na.omit(testing)
+  }
+
+  # Lag data
+  laggedtestingData <- lag.xts(testing,0:1)[2:nrow(testing),]
+
+  # Check that columns in testing set are the same as training
+  cols2keep <- colnames(as.data.frame(trainingSpecs$Non_Alarmed_Obs))
+  cols2remove <- which(!(colnames(laggedtestingData) %in% cols2keep))
+  laggedtestingData <- laggedtestingData[,-cols2remove]
+
+  #  Identify the label vector
+  labelVec <- which(colnames(testing) == "labelCol")
+
+  # Run mspMonitor
+  realDataandFlags <- mspMonitor(observations = laggedtestingData,
+                                 #labelVector = testing[2:nrow(testing),labelVec],
+                                 labelVector = rep(1,nrow(laggedtestingData)),
+                                 trainingSummary = trainingSpecs$TrainingSpecs)
+
+  # These lines will test each line as if it was just received:
+  realAlarmData <- realDataandFlags
+  for(i in 1:nrow(realDataandFlags)){
+    realAlarmData[1:i,] <- mspWarning(mspMonitor_object = realAlarmData[1:i,], faultsToTriggerAlarm = faultsToTriggerAlarm)
+  }
+
+
+  return(realAlarmData)
+}
