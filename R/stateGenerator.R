@@ -16,7 +16,7 @@ stateGenerator <- function(data,
                            stateVars,
                            minObs = round((2*length(which(!(colnames(data) %in% stateVars))))^2/2),
                            testingDay,
-                           rollingWindowDays) {
+                           rollingWindowDays = 0) {
 
   # Determine the column numbers of the state variables
   colNo <- which(colnames(data) %in% stateVars)
@@ -25,7 +25,11 @@ stateGenerator <- function(data,
   data$labelCol <- as.numeric(do.call(paste,c(as.data.frame(data[,colNo]),sep="")))
 
   # Frequency distribution of each state?
-  freqDistribution <- as.data.frame(table(data$labelCol[paste((testingDay-rollingWindowDays),"/",(testingDay-1),sep="")]))
+  if (rollingWindowDays == 0) {
+    freqDistribution <- as.data.frame(table(data$labelCol))
+  } else {
+    freqDistribution <- as.data.frame(table(data$labelCol[paste((testingDay-rollingWindowDays),"/",(testingDay-1),sep="")]))
+  }
 
   # Is the frequency of each state within the subset greater than the minimum during the training period?
   statesToKeep <- as.numeric(as.character(freqDistribution[which(freqDistribution[,2] >= minObs),1]))

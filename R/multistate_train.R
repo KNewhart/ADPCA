@@ -43,7 +43,7 @@ multistate_train <- function(rawData, vars, stateVars, testingDay, rollingWindow
 
   }
 
-  results <- list(data, trainingSpec_ls, testingDay, faultsToTriggerAlarm)
+  results <- list("data" = data, "trainingSpec_ls" = trainingSpec_ls, "testingDay" = testingDay, "faultsToTriggerAlarm" = faultsToTriggerAlarm)
   return(results)
 }
 
