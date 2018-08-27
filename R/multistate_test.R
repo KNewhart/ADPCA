@@ -21,7 +21,7 @@ multistate_test <- function(data, trainingSpec_ls, testingDay, faultsToTriggerAl
 
   # Test new observations for each state
   for (i in 1:l) {
-    alarmDataHolder <- testNewObs(data = data[[j[i]]],
+    alarmDataHolder <- testNewObs(data = data[[i]],
                                   trainingSpecs = trainingSpec_ls[[i]],
                                   testingDay = testingDay,
                                   faultsToTriggerAlarm = faultsToTriggerAlarm)
@@ -38,7 +38,8 @@ multistate_test <- function(data, trainingSpec_ls, testingDay, faultsToTriggerAl
     }
   }
 
-  alarms.xts <- as.xts(alarmData, order.by = as.POSIXct(rownames(alarmData)))
+  timestamps <- as.POSIXct(rownames(alarmData), format = "%Y-%m-%d %H:%M:%S")
+  alarms.xts <- as.xts(alarmData, order.by = timestamps)
 
   # Return xts with test data
   return(alarms.xts)

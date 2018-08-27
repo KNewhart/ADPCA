@@ -41,6 +41,10 @@ testNewObs <- function(data, trainingSpecs, testingDay, faultsToTriggerAlarm = 5
     realAlarmData[1:i,] <- mspWarning(mspMonitor_object = realAlarmData[1:i,], faultsToTriggerAlarm = faultsToTriggerAlarm)
   }
 
+  realAlarmData <- cbind(realAlarmData, rep(as.numeric(trainingSpecs$TrainingSpecs$`1`$SPE_threshold)))
+  colnames(realAlarmData)[length(colnames(realAlarmData))] <- "SPE_threshold"
+  realAlarmData <- cbind(realAlarmData, rep(as.numeric(trainingSpecs$TrainingSpecs$`1`$T2_threshold)))
+  colnames(realAlarmData)[length(colnames(realAlarmData))] <- "T2_threshold"
 
   return(realAlarmData)
 }

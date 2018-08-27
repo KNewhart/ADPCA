@@ -47,7 +47,12 @@ stateGenerator <- function(data,
     data_ls <- list()
     for (i in 1:length(statesToKeep)) {
       dataHolder <- dataNew[which(dataNew$labelCol == statesToKeep[i]),]
-      data_ls <- c(data_ls, list(uniquenessCheck(dataHolder)))
+      if (rollingWindowDays == 0) {
+        data_ls <- c(data_ls, list(dataHolder))
+      } else {
+        data_ls <- c(data_ls, list(uniquenessCheck(dataHolder)))
+      }
+
     }
     return(data_ls)
   }
