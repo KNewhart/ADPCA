@@ -4,7 +4,7 @@
 \alias{loadDBF}
 \title{Load all original data files}
 \usage{
-loadDBF(dataLocation, endDay, nDays)
+loadDBF(dataLocation, endDay, nDays, folder = "LogAllData")
 }
 \arguments{
 \item{dataLocation}{String excluding ending backslashes of LogAllData folder}
@@ -12,6 +12,8 @@ loadDBF(dataLocation, endDay, nDays)
 \item{endDay}{Date object with the last date to be included}
 
 \item{nDays}{Number of days of data to compile}
+
+\item{folder}{LogAllData or Log60sec}
 }
 \value{
 compiledData, Dataframe with all original data from .DBF files.

@@ -4,7 +4,7 @@
 \alias{loadandcleanDBF}
 \title{Import and Prepare Data}
 \usage{
-loadandcleanDBF(dataLocation, testingDay, nDays)
+loadandcleanDBF(dataLocation, testingDay, nDays, folder = "LogAllData")
 }
 \arguments{
 \item{dataLocation}{String excluding ending backslashes of LogAllData folder}
@@ -12,6 +12,8 @@ loadandcleanDBF(dataLocation, testingDay, nDays)
 \item{testingDay}{Date object with the last date to be included}
 
 \item{nDays}{Number of days of data to compile}
+
+\item{folder}{LogAllData or Log60sec}
 }
 \value{
 rawData, Dataframe including all compiled data
