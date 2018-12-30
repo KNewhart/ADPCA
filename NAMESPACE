@@ -3,6 +3,8 @@
 export(cleanDBF)
 export(createTrainingSpecs)
 export(fastmerge)
+export(graph_alarmData)
+export(graph_rawData)
 export(loadDBF)
 export(loadandcleanDBF)
 export(multistate_test)

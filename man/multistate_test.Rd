@@ -4,7 +4,17 @@
 \alias{multistate_test}
 \title{Test based on multistate data}
 \usage{
-multistate_test(data, trainingSpec_ls, testingDay, faultsToTriggerAlarm)
+multistate_test(data, trainingSpec_ls, testingDay,
+  faultsToTriggerAlarm = 5)
+}
+\arguments{
+\item{data}{compiled and cleaned data}
+
+\item{trainingSpec_ls}{ADPCA training specifications}
+
+\item{testingDay}{day to be tested}
+
+\item{faultsToTriggerAlarm}{number of faults to trigger an alarm (defaults to 5)}
 }
 \value{
 alarms.xts

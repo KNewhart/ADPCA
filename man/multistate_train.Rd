@@ -11,5 +11,5 @@ multistate_train(rawData, vars, stateVars, testingDay, rollingWindowDays,
 alarms.xts
 }
 \description{
-This function trains a multistate AD-PCA based on data
+This function trains a multistate AD-PCA based on data. Data are separated into a subsystem based on the variables specified. A label column is created by concatenating all of the state variables (which are integers) into a unique (string) identifier. If there are sufficient instances of a particular identifier (by default p^2/2 where p is the number of process variables including lag), then the state is included. createTrainingSpecs() function will calculate the principal components used for testing.
 }

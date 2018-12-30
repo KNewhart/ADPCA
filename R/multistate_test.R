@@ -1,15 +1,15 @@
 #' Test based on multistate data
 #'
 #' This function tests data for multistate AD-PCA
-#' @param data
-#' @param trainingSpec_ls
-#' @param testingDay
-#' @param faultsToTriggerAlarm
+#' @param data compiled and cleaned data
+#' @param trainingSpec_ls ADPCA training specifications
+#' @param testingDay day to be tested
+#' @param faultsToTriggerAlarm number of faults to trigger an alarm (defaults to 5)
 #' @return alarms.xts
 #' @export
 
 
-multistate_test <- function(data, trainingSpec_ls, testingDay, faultsToTriggerAlarm) {
+multistate_test <- function(data, trainingSpec_ls, testingDay, faultsToTriggerAlarm = 5) {
 
   # Creates list of the size of the number of states from stateGenerator
   alarmData_ls <- list()
