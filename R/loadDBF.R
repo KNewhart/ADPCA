@@ -45,9 +45,15 @@ loadDBF <- function(dataLocation, endDay, nDays, folder = "LogAllData") {
           }
           # If the file does not exist, and it is not the end of the month...
           else {
+            # 1/4/2019: Added file download from github repository
+            download.file(paste0("https://github.com/KNewhart/MP_SBMBR_data/raw/master/",folder,"/",paste(dates$currentYear,sprintf("%02d",dates$currentMonth),sprintf("%02d",dates$currentDay),sep='%20'),"%200000%20",folder,"%20(Wide).DBF"),
+                          destfile = paste(dataLocation,folder,"\\",dateString," 0000 ",folder," (Wide).DBF",sep=''), method = "curl", extra='-L')
             #... there is a missing file. Progress to the next day.
-            dates$currentDay <- dates$currentDay + 1
-            next
+            if (!file.exists(paste(dataLocation,folder,"\\",dateString," 0000 ",folder," (Wide).DBF",sep=''))) {
+              dates$currentDay <- dates$currentDay + 1
+              next
+            } else {}
+
           }
         }
         # File exists, therefore end the if statement
