@@ -5,8 +5,9 @@
 #' @export
 #'
 
-graph_alarmData <- function (data, keyword="", trueFaultTime = NULL) {
+graph_alarmData <- function (data, keyword="", trueFaultTime = NULL, trueAlarmTime = NULL) {
   packageLoad("scales")
+
   alarms <- data[,which(colnames(data) == "Alarm")]
   cols <- grep("PROCESS_VALUE", colnames(data))
   data <- data[,cols]
@@ -47,13 +48,22 @@ graph_alarmData <- function (data, keyword="", trueFaultTime = NULL) {
         }
 
         if (!is.null(trueFaultTime)) {
-          abline(v=trueFaultTime, col="blue")
+          abline(v=trueFaultTime, lty = 1, col = "blue")
+        } else {}
+
+        if (!is.null(trueAlarmTime)) {
+          abline(v=trueAlarmTime, lty = 2, col = "red")
         } else {}
 
         legend("bottomleft",
                legend = c("IC", "T2", "SPE", "Both"),
                col = c("black", "red", "orange", "purple"),
                pch = 16,
+               bty = "n")
+        legend("topleft",
+               legend = c("Fault Occurred", "System Alarm"),
+               col = c("blue", "red"),
+               lty=1:2,
                bty = "n")
 
       } else {
@@ -81,13 +91,22 @@ graph_alarmData <- function (data, keyword="", trueFaultTime = NULL) {
           }
 
           if (!is.null(trueFaultTime)) {
-            abline(v=trueFaultTime, col="blue")
+            abline(v=trueFaultTime, lty = 1, col = "blue")
+          } else {}
+
+          if (!is.null(trueAlarmTime)) {
+            abline(v=trueAlarmTime, lty = 2, col = "red")
           } else {}
 
           legend("bottomleft",
                  legend = c("IC", "T2", "SPE", "Both"),
                  col = c("black", "red", "orange", "purple"),
                  pch = 16,
+                 bty = "n")
+          legend("topleft",
+                 legend = c("Fault Occurred", "System Alarm"),
+                 col = c("blue", "red"),
+                 lty=1:2,
                  bty = "n")
 
         } else {
@@ -112,14 +131,22 @@ graph_alarmData <- function (data, keyword="", trueFaultTime = NULL) {
           }
           # axis.POSIXct(1, at = seq(r[1], r[2], by = "days"), cex.axis = 1, format = "%m/%d")
           if (!is.null(trueFaultTime)) {
-            abline(v=trueFaultTime, col="blue")
+            abline(v=trueFaultTime, lty = 1, col = "blue")
+          } else {}
 
+          if (!is.null(trueAlarmTime)) {
+            abline(v=trueAlarmTime, lty = 2, col = "red")
           } else {}
 
           legend("bottomleft",
                  legend = c("IC", "T2", "SPE", "Both"),
                  col = c("black", "red", "orange", "purple"),
                  pch = 16,
+                 bty = "n")
+          legend("topleft",
+                 legend = c("Fault Occurred", "System Alarm"),
+                 col = c("blue", "red"),
+                 lty=1:2,
                  bty = "n")
         }
       }

@@ -4,7 +4,8 @@
 \alias{graph_alarmData}
 \title{Graph alarm data}
 \usage{
-graph_alarmData(data, keyword = "", trueFaultTime = NULL)
+graph_alarmData(data, keyword = "", trueFaultTime = NULL,
+  trueAlarmTime = NULL)
 }
 \arguments{
 \item{data}{compiled xts object}
