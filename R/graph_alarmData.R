@@ -60,11 +60,15 @@ graph_alarmData <- function (data, keyword="", trueFaultTime = NULL, trueAlarmTi
                col = c("black", "red", "orange", "purple"),
                pch = 16,
                bty = "n")
-        legend("topleft",
-               legend = c("Fault Occurred", "System Alarm"),
-               col = c("blue", "red"),
-               lty=1:2,
-               bty = "n")
+
+        if (!is.null(trueAlarmTime)) {
+          legend("topleft",
+                 legend = c("Fault Occurred", "System Alarm"),
+                 col = c("blue", "red"),
+                 lty=1:2,
+                 bty = "n")
+        } else {}
+
 
       } else {
         if (i %in% do) {
@@ -103,11 +107,13 @@ graph_alarmData <- function (data, keyword="", trueFaultTime = NULL, trueAlarmTi
                  col = c("black", "red", "orange", "purple"),
                  pch = 16,
                  bty = "n")
-          legend("topleft",
-                 legend = c("Fault Occurred", "System Alarm"),
-                 col = c("blue", "red"),
-                 lty=1:2,
-                 bty = "n")
+          if (!is.null(trueAlarmTime)) {
+            legend("topleft",
+                   legend = c("Fault Occurred", "System Alarm"),
+                   col = c("blue", "red"),
+                   lty=1:2,
+                   bty = "n")
+          } else {}
 
         } else {
           plot(x = dates,
@@ -143,11 +149,13 @@ graph_alarmData <- function (data, keyword="", trueFaultTime = NULL, trueAlarmTi
                  col = c("black", "red", "orange", "purple"),
                  pch = 16,
                  bty = "n")
-          legend("topleft",
-                 legend = c("Fault Occurred", "System Alarm"),
-                 col = c("blue", "red"),
-                 lty=1:2,
-                 bty = "n")
+          if (!is.null(trueAlarmTime)) {
+            legend("topleft",
+                   legend = c("Fault Occurred", "System Alarm"),
+                   col = c("blue", "red"),
+                   lty=1:2,
+                   bty = "n")
+          } else {}
         }
       }
     }
