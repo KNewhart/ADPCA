@@ -37,27 +37,23 @@ loadDBF <- function(dataLocation, endDay, nDays, folder = "LogAllData") {
         dateString <- paste(dates$currentYear,sprintf("%02d",dates$currentMonth),sprintf("%02d",dates$currentDay),sep=' ')
 
         ### Check to see if file exists:
-        if (!file.exists(paste(dataLocation,folder,"\\",dateString," 0000 ",folder," (Wide).DBF",sep=''))) {
+        if (!file.exists(paste(dataLocation,folder,"/",dateString," 0000 ",folder," (Wide).DBF",sep=''))) {
           # If the file does not exist, and the date is the 31st...
           if (dates$currentDay > 31) {
             # ... the end of the month has been reached, so break from the daily 'while' loop
             break
-          }
-          # If the file does not exist, and it is not the end of the month...
-          else {
+          } else { # If the file does not exist, and it is not the end of the month...
             # 1/4/2019: Added file download from github repository
-            download.file(paste0("https://github.com/KNewhart/MP_SBMBR_data/raw/master/",folder,"/",paste(dates$currentYear,sprintf("%02d",dates$currentMonth),sprintf("%02d",dates$currentDay),sep='%20'),"%200000%20",folder,"%20(Wide).DBF"),
-                          destfile = paste(dataLocation,folder,"\\",dateString," 0000 ",folder," (Wide).DBF",sep=''), method = "curl", extra='-L')
+            # download.file(paste0("https://github.com/KNewhart/MP_SBMBR_data/raw/master/",folder,"/",paste(dates$currentYear,sprintf("%02d",dates$currentMonth),sprintf("%02d",dates$currentDay),sep='%20'),"%200000%20",folder,"%20(Wide).DBF"),
+            #               destfile = paste(dataLocation,folder,"/",dateString," 0000 ",folder," (Wide).DBF",sep=''), method = "curl", extra='-L')
             #... there is a missing file. Progress to the next day.
-            if (!file.exists(paste(dataLocation,folder,"\\",dateString," 0000 ",folder," (Wide).DBF",sep=''))) {
+            if (!file.exists(paste(dataLocation,folder,"/",dateString," 0000 ",folder," (Wide).DBF",sep=''))) {
               dates$currentDay <- dates$currentDay + 1
               next
             } else {}
 
           }
-        }
-        # File exists, therefore end the if statement
-        else {}
+        } else {} # File exists, therefore end the if statement
 
 
 
@@ -79,9 +75,7 @@ loadDBF <- function(dataLocation, endDay, nDays, folder = "LogAllData") {
         # If this is the first day, create the bulk data file
         if (is.null(compiledData)) {
           compiledData <- rawData
-        }
-        # If it is any other day in the series, add the day's data to the bulk, raw data file
-        else {
+        } else { # If it is any other day in the series, add the day's data to the bulk, raw data file
           compiledData <- rbind(compiledData,rawData)
         }
 
