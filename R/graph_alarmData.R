@@ -207,7 +207,7 @@ graph_alarmData <- function (data,
   }
 
   if (filetype == "png") {
-    png(file = paste(filename, ".png", sep=""), units = "in", res = 96, width = w, height = n*h)
+    png(file = paste(filename, ".png", sep=""), units = "in", res = 300, width = w, height = n*h)
     plot.it()
     dev.off()
   }

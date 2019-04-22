@@ -8,6 +8,8 @@ graph_rawData(data, keyword = "", trueFaultTime = NULL)
 }
 \arguments{
 \item{data}{compiled xts object}
+
+\item{keyword}{string for filename}
 }
 \description{
 Function to plot all varaibles in original .DBF file

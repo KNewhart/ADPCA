@@ -2,6 +2,7 @@
 #'
 #' Function to plot all varaibles in original .DBF file
 #' @param data compiled xts object
+#' @param keyword string for filename
 #' @export
 #'
 
@@ -25,7 +26,7 @@ graph_rawData <- function (data, keyword="", trueFaultTime = NULL) {
 
 
   plot.it <- function() {
-    par(mfrow=c((n),1), mar = c(2.1, 4.1, 4.1, 2.1))
+    par(mfrow=c((n),1), mar = c(2.1, 3.1, 4.1, 2.1))
 
     for (i in 1:n) {
 
@@ -37,7 +38,7 @@ graph_rawData <- function (data, keyword="", trueFaultTime = NULL) {
              xlab = "",
              ylab = "",
              main = colnames(data)[i],
-             type = "p",
+             pch="20",
              col = "black")
         if (r.hours > 24) {
           axis.POSIXct(1, at = seq(r[1], r[2], by = "days"), cex.axis = 1, format = "%m/%d")
@@ -56,7 +57,7 @@ graph_rawData <- function (data, keyword="", trueFaultTime = NULL) {
                xlab = "",
                ylab = "",
                main = colnames(data)[i],
-               type = "p",
+               pch="20",
                col = "black")
           # line.ewma <- ewma(data[,i], n = 1440, alpha = 0.01)
           # points(x = index(line.ewma),
@@ -77,7 +78,7 @@ graph_rawData <- function (data, keyword="", trueFaultTime = NULL) {
                xlab = "",
                ylab = "",
                main = colnames(data)[i],
-               type = "p",
+               pch="20",
                col = "black")
           # line.ewma <- ewma(data[,i])
           # line(x = index(line.ewma),
@@ -98,7 +99,8 @@ graph_rawData <- function (data, keyword="", trueFaultTime = NULL) {
   # pdf(file = paste(filename,".pdf", sep=''),
   #     width = 30,
   #     height = (n)*2)
-  svg(filename = paste(filename, ".svg", sep=""), width = 8, height =n*2, family = "serif")
+  # svg(filename = paste(filename, ".svg", sep=""), width = 8, height =n*2, family = "serif")
+  png(file = paste(filename, ".png", sep=""), units = "in", res = 300, width = 6.5, height = n*2)
   plot.it()
   dev.off()
   # plot.it() # Margins too large to plot
