@@ -5,7 +5,7 @@
 \title{Train based on multistate data}
 \usage{
 multistate_train(rawData, vars, stateVars, testingDay, rollingWindowDays,
-  alphaN, faultsToTriggerAlarm)
+  alphaN, faultsToTriggerAlarm, statistic = "T2", by = "Time")
 }
 \value{
 alarms.xts

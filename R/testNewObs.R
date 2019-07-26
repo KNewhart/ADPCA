@@ -10,7 +10,7 @@
 
 
 testNewObs <- function(data, trainingSpecs, testingDay, faultsToTriggerAlarm = 5) {
-
+  library(xts)
   testing <- xts(data, order.by = as.POSIXct(index(data), "%Y-%m-%d %H:%M:%S", origin = "1970-01-01"))[paste(testingDay, "/", sep='')]
 
   # Check for NA
@@ -37,9 +37,18 @@ testNewObs <- function(data, trainingSpecs, testingDay, faultsToTriggerAlarm = 5
 
   # These lines will test each line as if it was just received:
   realAlarmData <- realDataandFlags
-  for(i in 1:nrow(realDataandFlags)){
-    realAlarmData[1:i,] <- mspWarning(mspMonitor_object = realAlarmData[1:i,], faultsToTriggerAlarm = faultsToTriggerAlarm)
-  }
+
+
+  # numCores <- detectCores()
+  # registerDoParallel(numCores)
+  # realAlarmData <- foreach(i=1:nrow(realDataandFlags), .combine = rbind) %dopar% {
+  # for(i in 1:nrow(realDataandFlags)){
+  # sapply(seq(1,nrow(realDataandFlags)), function(i){
+    realAlarmData <- mspWarning(mspMonitor_object = realDataandFlags, faultsToTriggerAlarm = faultsToTriggerAlarm)
+  # }
+  # )
+  # realAlarmData <- apply(realAlarmData,1,function(i) mvMonitoringv2::mspWarning(mspMonitor_object = realDataandFlags[i,], faultsToTriggerAlarm = faultsToTriggerAlarm))
+  # stopImplicitCluster()
 
   realAlarmData <- cbind(realAlarmData, rep(as.numeric(trainingSpecs$TrainingSpecs$`1`$SPE_threshold)))
   colnames(realAlarmData)[length(colnames(realAlarmData))] <- "SPE_threshold"

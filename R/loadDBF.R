@@ -38,6 +38,12 @@ loadDBF <- function(dataLocation, endDay, nDays, folder = "LogAllData") {
 
         ### Check to see if file exists:
         if (!file.exists(paste(dataLocation,folder,"/",dateString," 0000 ",folder," (Wide).DBF",sep=''))) {
+
+          # February special case
+          if((dates$currentDay >= 29) && (dates$currentMonth == 2)) {
+            break
+          }
+
           # If the file does not exist, and the date is the 31st...
           if (dates$currentDay > 31) {
             # ... the end of the month has been reached, so break from the daily 'while' loop

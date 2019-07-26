@@ -15,7 +15,7 @@
 stateGenerator <- function(data,
                            stateVars,
                            minObs = round((2*length(which(!(colnames(data) %in% stateVars))))^2/2),
-                           testingDay,
+                           testingDay = NULL,
                            rollingWindowDays = 0) {
 
   # Determine the column numbers of the state variables

@@ -5,7 +5,7 @@
 \title{Run Training Functions}
 \usage{
 createTrainingSpecs(data, testingDay, rollingWindowDays, alpha = 0.01,
-  faultsToTriggerAlarm = 5)
+  faultsToTriggerAlarm = 5, statistic = "T2", by = "Time")
 }
 \arguments{
 \item{data}{Dataframe of process data}
@@ -17,6 +17,10 @@ createTrainingSpecs(data, testingDay, rollingWindowDays, alpha = 0.01,
 \item{alpha}{Accuracy of analysis, defaults to 0.01}
 
 \item{faultsToTriggerAlarm}{Number of abnormal observations to be considered an alarm, defaults to five}
+
+\item{statistic}{Use "T2" or "SPE"}
+
+\item{by}{"Time" or number of observations to use in training window}
 }
 \description{
 Using only the data from the start to the day before testing day, train the ADPCA model using functions from mvMonitoring

@@ -3,7 +3,7 @@ Title: ADPCA for Process Monitoring of WWTP
 Version: 0.0.0.9000
 Authors@R: person("Kathryn", "Newhart", email = "kbnewhart@mines.edu", role = c("aut", "cre"))
 Description: Imports data from a demonstration-scale SB-MBR for the purpise of monitoring the process for statistically significant fault events using AD-PCA
-Depends: xts, foreign, stats, mvMonitoring
+Depends: xts, lazyeval, foreign, stats, mvMonitoringv2, doSNOW, foreach, parallel, doParallel
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true

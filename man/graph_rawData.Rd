@@ -4,7 +4,8 @@
 \alias{graph_rawData}
 \title{Graph raw data}
 \usage{
-graph_rawData(data, keyword = "", trueFaultTime = NULL)
+graph_rawData(data, keyword = "", trueFaultTime = NULL,
+  fault.interval = NULL)
 }
 \arguments{
 \item{data}{compiled xts object}

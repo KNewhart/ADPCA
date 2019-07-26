@@ -6,7 +6,7 @@
 #' @export
 #'
 
-graph_rawData <- function (data, keyword="", trueFaultTime = NULL) {
+graph_rawData <- function (data, keyword="", trueFaultTime = NULL, fault.interval = NULL) {
   packageLoad("scales")
   cols <- grep("PROCESS_VALUE", colnames(data))
   data <- data[,cols]
@@ -38,7 +38,7 @@ graph_rawData <- function (data, keyword="", trueFaultTime = NULL) {
              xlab = "",
              ylab = "",
              main = colnames(data)[i],
-             pch="20",
+             pch=20,
              col = "black")
         if (r.hours > 24) {
           axis.POSIXct(1, at = seq(r[1], r[2], by = "days"), cex.axis = 1, format = "%m/%d")
@@ -47,6 +47,12 @@ graph_rawData <- function (data, keyword="", trueFaultTime = NULL) {
         }
 
         if (!is.null(trueFaultTime)) abline(v=trueFaultTime, col="blue")
+        if (!is.null(fault.interval)) {
+          for(i in 1:length(fault.interval)) {
+            abline(v=fault.interval[i]@start, col="red")
+            abline(v=fault.interval[i]@start+fault.interval[i]@.Data,col="red")
+          }
+        }
 
       } else {
         if (i %in% do) {
@@ -57,7 +63,7 @@ graph_rawData <- function (data, keyword="", trueFaultTime = NULL) {
                xlab = "",
                ylab = "",
                main = colnames(data)[i],
-               pch="20",
+               pch=20,
                col = "black")
           # line.ewma <- ewma(data[,i], n = 1440, alpha = 0.01)
           # points(x = index(line.ewma),
@@ -70,6 +76,12 @@ graph_rawData <- function (data, keyword="", trueFaultTime = NULL) {
           }
 
           if (!is.null(trueFaultTime)) abline(v=trueFaultTime, col="blue")
+          if (!is.null(fault.interval)) {
+            for(i in 1:length(fault.interval)) {
+              abline(v=fault.interval[i]@start, col="red")
+              abline(v=fault.interval[i]@start+fault.interval[i]@.Data,col="red")
+            }
+          }
 
         } else {
           plot(x = dates,
@@ -78,7 +90,7 @@ graph_rawData <- function (data, keyword="", trueFaultTime = NULL) {
                xlab = "",
                ylab = "",
                main = colnames(data)[i],
-               pch="20",
+               pch=20,
                col = "black")
           # line.ewma <- ewma(data[,i])
           # line(x = index(line.ewma),
@@ -90,6 +102,12 @@ graph_rawData <- function (data, keyword="", trueFaultTime = NULL) {
           }
           # axis.POSIXct(1, at = seq(r[1], r[2], by = "days"), cex.axis = 1, format = "%m/%d")
           if (!is.null(trueFaultTime)) abline(v=trueFaultTime, col="blue")
+          if (!is.null(fault.interval)) {
+            for(i in 1:length(fault.interval)) {
+              abline(v=fault.interval[i]@start, col="red")
+              abline(v=fault.interval[i]@start+fault.interval[i]@.Data,col="red")
+            }
+          }
         }
       }
     }

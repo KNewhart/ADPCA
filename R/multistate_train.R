@@ -8,11 +8,13 @@
 #' @param rollingWindowDays
 #' @param alphaN
 #' @param faultsToTriggerAlarm
+#' @param statistic
+#' @param by
 #' @return alarms.xts
 #' @export
 
 
-multistate_train <- function(rawData, vars, stateVars, testingDay, rollingWindowDays, alphaN, faultsToTriggerAlarm) {
+multistate_train <- function(rawData, vars, stateVars, testingDay, rollingWindowDays, alphaN, faultsToTriggerAlarm, statistic = "T2", by = "Time") {
   # Divide into subsystems (i.e., BR, MT)
   data <- rawData[,vars]
 
@@ -30,20 +32,36 @@ multistate_train <- function(rawData, vars, stateVars, testingDay, rollingWindow
 
   # Create training specifications for each state
   for (i in 1:l) {
+  # nCores <- detectCores(logical = FALSE)
+  # nThreads<- detectCores(logical = TRUE)
+  # cluster = makeCluster(nThreads, type = "SOCK")
+  # class(cluster)
+  # registerDoSNOW(cluster)
+
+  # numCores <- detectCores()
+  # registerDoParallel(numCores)
+  # trainingSpec_ls <- foreach(i=1:l) %dopar% {
     tryCatch({
       trainingSpecHolder <- createTrainingSpecs(data = data[[i]],
                                                 testingDay = testingDay,
                                                 rollingWindowDays = rollingWindowDays,
                                                 alpha = alphaN,
-                                                faultsToTriggerAlarm = faultsToTriggerAlarm)
-      trainingSpec_ls <- c(trainingSpec_ls, list(trainingSpecHolder))
+                                                faultsToTriggerAlarm = faultsToTriggerAlarm,
+                                                statistic = statistic,
+                                                by = by)
       j <- c(j,i)
+      trainingSpec_ls <- c(trainingSpec_ls, list(trainingSpecHolder))
+
 
     }, error = function(e){})
 
   }
+  # stopImplicitCluster()
+  # stopCluster(cluster)
+  # registerDoSEQ()
+  # invisible(gc); remove(nCores); remove(nThreads); remove(cluster);
 
-  results <- list("data" = list(data), "trainingSpec_ls" = list(trainingSpec_ls), "testingDay" = testingDay, "faultsToTriggerAlarm" = faultsToTriggerAlarm)
+  results <- list("data" = list(data), "trainingSpec_ls" = list(trainingSpec_ls), "testingDay" = testingDay, "faultsToTriggerAlarm" = faultsToTriggerAlarm, "statistic" = statistic)
   return(results)
 }
 

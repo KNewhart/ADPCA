@@ -5,8 +5,8 @@
 \title{State Generator}
 \usage{
 stateGenerator(data, stateVars, minObs = round((2 *
-  length(which(!(colnames(data) \%in\% stateVars))))^2/2), testingDay,
-  rollingWindowDays = 0)
+  length(which(!(colnames(data) \%in\% stateVars))))^2/2),
+  testingDay = NULL, rollingWindowDays = 0)
 }
 \arguments{
 \item{data}{Dataframe with column names}

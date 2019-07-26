@@ -19,12 +19,17 @@ multistate_test <- function(data, trainingSpec_ls, testingDay, faultsToTriggerAl
     l <- 1
   }
 
-  # Test new observations for each state
+
   for (i in 1:l) {
-    alarmDataHolder <- testNewObs(data = data[[i]],
-                                  trainingSpecs = trainingSpec_ls[[i]],
-                                  testingDay = testingDay,
-                                  faultsToTriggerAlarm = faultsToTriggerAlarm)
+  # alarmData_ls <- lapply(list(seq(1,l)), function(i) {
+    if(length(trainingSpec_ls[[i]]) == 0) {
+      alarmData_ls <- c(alarmData_ls, list(NULL))
+      next
+    }
+    alarmDataHolder <- ADPCA::testNewObs(data = data[[i]],
+                      trainingSpecs = trainingSpec_ls[[i]],
+                      testingDay = testingDay,
+                      faultsToTriggerAlarm = faultsToTriggerAlarm)
     alarmData_ls <- c(alarmData_ls, list(alarmDataHolder))
   }
 
