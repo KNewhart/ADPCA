@@ -6,7 +6,7 @@
 \usage{
 graph_alarmData(data, keyword = "", trueFaultTime = NULL,
   trueAlarmTime = NULL, output = FALSE, w = 8, h = 2,
-  inset.delta = 0, filetype = "pdf")
+  inset.delta = 0, filetype = "pdf", fault.interval = NULL)
 }
 \arguments{
 \item{data}{compiled xts object}

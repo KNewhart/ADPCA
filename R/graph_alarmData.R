@@ -13,7 +13,8 @@ graph_alarmData <- function (data,
                              w = 8,
                              h = 2,
                              inset.delta = 0,
-                             filetype = "pdf") {
+                             filetype = "pdf",
+                             fault.interval = NULL) {
   packageLoad("scales")
 
   alarms <- data[,which(colnames(data) == "Alarm")]
@@ -63,6 +64,13 @@ graph_alarmData <- function (data,
         if (!is.null(trueAlarmTime)) {
           abline(v=trueAlarmTime, lty = 2, col = "red")
         } else {}
+
+        if (!is.null(fault.interval)) {
+          for(i in 1:length(fault.interval)) {
+            abline(v=fault.interval[i]@start, col="red")
+            abline(v=fault.interval[i]@start+fault.interval[i]@.Data,col="red")
+          }
+        }
 
         if(is.null(trueAlarmTime)) {
           legend("right", inset = c((-.075+inset.delta),0),
@@ -116,6 +124,13 @@ graph_alarmData <- function (data,
             abline(v=trueAlarmTime, lty = 2, col = "red")
           } else {}
 
+          if (!is.null(fault.interval)) {
+            for(i in 1:length(fault.interval)) {
+              abline(v=fault.interval[i]@start, col="red")
+              abline(v=fault.interval[i]@start+fault.interval[i]@.Data,col="red")
+            }
+          }
+
           if(is.null(trueAlarmTime)) {
             legend("right", inset = c((-.075+inset.delta),0),
                    legend = c("IC", "T2", "SPE", "Both"),
@@ -163,6 +178,13 @@ graph_alarmData <- function (data,
           if (!is.null(trueAlarmTime)) {
             abline(v=trueAlarmTime, lty = 2, col = "red")
           } else {}
+
+          if (!is.null(fault.interval)) {
+            for(i in 1:length(fault.interval)) {
+              abline(v=fault.interval[i]@start, col="red")
+              abline(v=fault.interval[i]@start+fault.interval[i]@.Data,col="red")
+            }
+          }
 
           if(is.null(trueAlarmTime)) {
             legend("right", inset = c((-.075+inset.delta),0),
